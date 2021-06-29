@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>ACC BANK</title>
+    <link href="https://i.imgur.com/OCALdL6.png" rel="icon">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap-theme.min.css}"/>
+    <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}"/>
+
+    <style>
+        table {
+          border-collapse: separate;
+          border-spacing: 0 5px;
+        }
+
+        thead th {
+          background-image: url('https://i.imgur.com/siO6002.png');
+          color: white;
+        }
+
+        tbody td {
+          background-color: #EEEEEE;
+        }
+
+        tr td:first-child,
+        tr th:first-child {
+          border-top-left-radius: 6px;
+          border-bottom-left-radius: 6px;
+        }
+
+        tr td:last-child,
+        tr th:last-child {
+          border-top-right-radius: 6px;
+          border-bottom-right-radius: 6px;
+        }
+        th, td {
+            width: 40px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        nav {
+            background-image: url('https://i.imgur.com/zUyF5fv.png');
+            background-repeat: repeat;
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+        }
+
+    </style>
+
+</head>
+<body>
+<nav class="navbar navbar-fixed-top">
+    <div align="center" class="container">
+        <img align="center" src="https://i.imgur.com/ycS0Z09.png" style="padding-top: 1px" width="150px">
+    </div>
+</nav>
+
+<div class="container">
+    <div class="page-header">
+        <h3>Olá, <span th:text="${nomecliente}"></span></h3>
+        <h5>Saldo em Conta Corrente: <span th:text="${#numbers.formatCurrency(saldocontacorrente)}"></span></h5>
+        <h5>Saldo em Conta Poupança: <span th:text="${#numbers.formatCurrency(saldocontapoupanca)}"></span></h5>
+    </div>
+</div>
+
+<div class="container">
+    <div class="page-header">
+        <h7>Extrato</h7>
+        <h4>Conta Corrente</h4>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Operação</th>
+            <th>Valor</th>
+            <th>Data e Hora</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="extrato: ${listarextratocontacorrente}">
+            <td th:text="${extrato.operacao}"></td>
+            <td th:text="${#numbers.formatCurrency(extrato.valorOperacao)}"></td>
+            <td th:text="${#temporals.format(extrato.dataHoraMovimento, 'dd/MM/yyyy HH:mm:ss')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <div class="page-header">
+        <h7>Extrato</h7>
+        <h4>Conta Poupança</h4>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Operação</th>
+            <th>Valor</th>
+            <th>Data e Hora</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="extratoP: ${listarextratocontapoupanca}">
+            <td th:text="${extratoP.operacao}"></td>
+            <td th:text="${#numbers.formatCurrency(extratoP.valorOperacao)}"></td>
+            <td th:text="${#temporals.format(extratoP.dataHoraMovimento, 'dd/MM/yyyy HH:mm:ss')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
